@@ -4,6 +4,7 @@ namespace In2code\Femanager\Domain\Service;
 use In2code\Femanager\Utility\TemplateUtility;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -81,6 +82,12 @@ class SendMailService
         if (!empty($variables['user']) && method_exists($variables['user'], '_getProperties')) {
             $this->cObj->start($variables['user']->_getProperties());
         }
+
+        DebuggerUtility::var_dump($typoScript['_enable']);
+        DebuggerUtility::var_dump($typoScript['_enable.']);
+        DebuggerUtility::var_dump($this->cObj);
+        die;
+
         if (!$this->cObj->cObjGetSingle($typoScript['_enable'], $typoScript['_enable.']) || count($receiver) === 0) {
             return false;
         }
@@ -183,6 +190,7 @@ class SendMailService
     protected function getMailBody($template, $variables)
     {
         $standAloneView = TemplateUtility::getDefaultStandAloneView();
+        die('hard');
         $standAloneView->setTemplatePathAndFilename($this->getRelativeEmailPathAndFilename($template));
         $standAloneView->assignMultiple($variables);
         return $standAloneView->render();

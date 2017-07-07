@@ -1,9 +1,13 @@
 <?php
 namespace In2code\Femanager\Controller;
 
+use In2code\Femanager\Domain\Model\Log;
 use In2code\Femanager\Domain\Model\User;
+use In2code\Femanager\Utility\FrontendUtility;
+use In2code\Femanager\Utility\LogUtility;
 use In2code\Femanager\Utility\UserUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -50,7 +54,7 @@ class UserBackendController extends AbstractController
         $this->view->assignMultiple(
             [
                 'users' => $this->userRepository->findAllInBackend($filter),
-                'approveUsers' => $this->userRepository->findAllInBackend(),
+                'approveUsers' => $this->userRepository->findOpenApprovals(),
                 'moduleUri' => BackendUtility::getModuleUrl('tce_db')
             ]
         );
@@ -60,7 +64,7 @@ class UserBackendController extends AbstractController
      * action user logout
      *
      * @param User $user
-     * @return void
+     * @return voidß
      */
     public function userLogoutAction(User $user)
     {
@@ -68,4 +72,45 @@ class UserBackendController extends AbstractController
         $this->addFlashMessage('User successfully logged out');
         $this->redirect('list');
     }
+
+    /**
+     * action approve User
+     *
+     * @param int $userID
+     * @return void
+     */
+    public function approveUserAction($userID)
+    {
+        $user = $this->userRepository->findByUid($userID);
+        $user = FrontendUtility::forceValues($user, $this->config['new.']['forceValues.']['onAdminConfirmation.']);
+        #DebuggerUtility::var_dump($user);
+
+        $user->setTxFemanagerConfirmedbyadmin(true);
+        $user->setDisable(false);
+        LogUtility::log(Log::STATUS_REGISTRATIONCONFIRMEDADMIN, $user);
+        $this->userRepository->update($user);
+        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'approveUserAction', [$user, $this]);
+
+        $this->addFlashMessage($user->getName() . '  successfully approved');
+
+        $this->finalCreate($user, 'list', 'createStatus', false, $status='', $this->config);
+    }
+
+    /**
+     * action approve User
+     *
+     * @param int $userID
+     * @return void
+     */
+    public function declineUserAction($userID)
+    {
+        $user = $this->userRepository->findByUid($userID);
+        $this->userRepository->remove($user);
+
+        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'declineUserAction', [$user, $this]);
+
+        $this->addFlashMessage($user->getName() . '  was declined');
+        $this->redirect('list');
+    }
+    
 }

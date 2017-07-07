@@ -18,6 +18,7 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /***************************************************************
@@ -296,11 +297,15 @@ abstract class AbstractController extends ActionController
      * @param string $redirectByActionName Action to redirect
      * @param bool $login Login after creation
      * @param string $status
+     * @param array $status
      * @return void
      */
-    public function finalCreate($user, $action, $redirectByActionName, $login = true, $status = '')
+    public function finalCreate($user, $action, $redirectByActionName, $login = true, $status = '',$config)
     {
         $this->loginPreflight($user, $login);
+        if ($config) {
+            $this->settings = $config;
+        }
         $variables = ['user' => $user, 'settings' => $this->settings];
         $this->sendMailService->send(
             'createUserNotify',

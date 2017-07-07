@@ -398,4 +398,14 @@ class User extends FrontendUser
     {
         return $this->getIgnoreDirty() ? false : parent::_isDirty($propertyName);
     }
+
+    /**
+     * Approves this user
+     *
+     * @param null $propertyName
+     * @return bool
+     */
+    public function approveUser() {
+        $this->setTxFemanagerConfirmedbyadmin(true);
+    }
 }
