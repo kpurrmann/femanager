@@ -167,6 +167,7 @@ class NewController extends AbstractController
             LogUtility::log(Log::STATUS_REGISTRATIONCONFIRMEDUSER, $user);
 
             if ($this->isAdminConfirmationMissing($user)) {
+                // @todo add hook for notification "New confirmation awating"
                 $this->sendMailService->send(
                     'createAdminConfirmation',
                     StringUtility::makeEmailArray(
@@ -242,6 +243,12 @@ class NewController extends AbstractController
         }
         return true;
     }
+
+    // @todo add action ConfirmUser
+
+
+
+    // @todo add action RefuseUser
 
     /**
      * Status action: Admin refused profile creation (normal or silent)
