@@ -50,6 +50,7 @@ class UserBackendController extends AbstractController
         $this->view->assignMultiple(
             [
                 'users' => $this->userRepository->findAllInBackend($filter),
+                'approveUsers' => $this->userRepository->findAllInBackend(),
                 'moduleUri' => BackendUtility::getModuleUrl('tce_db')
             ]
         );
