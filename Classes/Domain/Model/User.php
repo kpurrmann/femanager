@@ -398,4 +398,15 @@ class User extends FrontendUser
     {
         return $this->getIgnoreDirty() ? false : parent::_isDirty($propertyName);
     }
+
+    /**
+     * @return string of the email domain
+     */
+    public function getEmailDomain() {
+        $emailDomain = '';
+        if ($this->getEmail() && strrchr($this->getEmail, "@")) {
+            $emailDomain = substr(strrchr($this->getEmail, "@"), 1);
+        }
+        return $emailDomain;
+    }
 }

@@ -74,4 +74,33 @@ class UserTest extends UnitTestCase
         $this->assertSame('Conceived at T3CON10', $this->fixture->getUsername());
     }
 
+    /**
+     * @test
+     * @return void
+     */
+    public function getEmailDomain()
+    {
+        $this->fixture->setEmail('test@test.de');
+        $this->assertSame('test.de', $this->fixture->getEmailDomain());
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function getEmailDomainWithEmptyEmail()
+    {
+        $this->fixture->setEmail('');
+        $this->assertSame('', $this->fixture->getEmailDomain());
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function getEmailDomainWithIncorrectEmail()
+    {
+        $this->fixture->setEmail('test@');
+        $this->assertSame('', $this->fixture->getEmailDomain());
+    }
 }
