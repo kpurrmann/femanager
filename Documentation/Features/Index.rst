@@ -1,45 +1,15 @@
-.. include:: Includes.txt
+.. include:: ../Includes.txt
 
 =========
-femanager
+Features
 =========
 
-.. only:: html
-
-	:Copyright:
-		2013 - 2016
-
-	:Classification:
-		femanager
-
-	:Version:
-		2.6
-
-	:Language:
-		en
-
-	:Keywords:
-		TYPO3 frontend user registration, sr_feuser_register
-
-	:Author:
-		Alex Kellner
-
-	:Email:
-		alexander.kellner@in2code.de
-
-
-		**Table of Contents**
+This is an overview of Features (Version 3.0 or higher)
 
 .. toctree::
 	:maxdepth: 3
 	:titlesonly:
 	:glob:
 
-	Introduction/Index
-	Installation/Index
-	BestPractice/Index
-	FAQ/Index
-	KnownProblems/Index
-	Todos/Index
-	Changelog/Index
-	Links/Index
+	AutoApprovemtn/Index
+

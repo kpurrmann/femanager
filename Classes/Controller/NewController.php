@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Femanager\Controller;
 
 use In2code\Femanager\Domain\Model\Log;
@@ -10,6 +11,7 @@ use In2code\Femanager\Utility\LogUtility;
 use In2code\Femanager\Utility\StringUtility;
 use In2code\Femanager\Utility\UserUtility;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 
@@ -167,7 +169,24 @@ class NewController extends AbstractController
             LogUtility::log(Log::STATUS_REGISTRATIONCONFIRMEDUSER, $user);
 
             if ($this->isAdminConfirmationMissing($user)) {
-                // @todo add hook for notification "New confirmation awating"
+
+                // auto approvement
+                if ($this->settings['new']['autoApprovement'] == 1) {
+                    if ($this->approveUserAutomatically($user)) {
+                        $this->signalSlotDispatcher->dispatch(
+                            __CLASS__,
+                            __FUNCTION__ . 'AutoApprovementDone',
+                            [$user, $this]
+                        );
+                    } else {
+                        $this->signalSlotDispatcher->dispatch(
+                            __CLASS__,
+                            __FUNCTION__ . 'AutoApprovementRefused',
+                            [$user, $this]
+                        );
+                    };
+                }
+
                 $this->sendMailService->send(
                     'createAdminConfirmation',
                     StringUtility::makeEmailArray(
@@ -193,8 +212,10 @@ class NewController extends AbstractController
 
         } else {
             $this->addFlashMessage(LocalizationUtility::translate('createFailedProfile'), '', FlashMessage::ERROR);
+
             return false;
         }
+
         return true;
     }
 
@@ -214,8 +235,10 @@ class NewController extends AbstractController
             $this->userRepository->remove($user);
         } else {
             $this->addFlashMessage(LocalizationUtility::translate('createFailedProfile'), '', FlashMessage::ERROR);
+
             return false;
         }
+
         return true;
     }
 
@@ -230,22 +253,17 @@ class NewController extends AbstractController
     protected function statusAdminConfirmation(User $user, $hash, $status)
     {
         if (HashUtility::validHash($hash, $user)) {
-            $user = FrontendUtility::forceValues($user, $this->config['new.']['forceValues.']['onAdminConfirmation.']);
-            $user->setTxFemanagerConfirmedbyadmin(true);
-            $user->setDisable(false);
-            $this->userRepository->update($user);
-            $this->addFlashMessage(LocalizationUtility::translate('create'));
-            LogUtility::log(Log::STATUS_REGISTRATIONCONFIRMEDADMIN, $user);
-            $this->finalCreate($user, 'new', 'createStatus', false, $status);
+            $this->doApprovement($user->getUid(), $status);
         } else {
             $this->addFlashMessage(LocalizationUtility::translate('createFailedProfile'), '', FlashMessage::ERROR);
+
             return false;
         }
+
         return true;
     }
 
     // @todo add action ConfirmUser
-
 
 
     // @todo add action RefuseUser
@@ -280,8 +298,10 @@ class NewController extends AbstractController
             $this->userRepository->remove($user);
         } else {
             $this->addFlashMessage(LocalizationUtility::translate('createFailedProfile'), '', FlashMessage::ERROR);
+
             return false;
         }
+
         return true;
     }
 
@@ -310,4 +330,67 @@ class NewController extends AbstractController
     {
         return !empty($this->settings['new']['confirmByAdmin']) && !$user->getTxFemanagerConfirmedbyadmin();
     }
+
+
+    /**
+     *  checks if the user belongs to a whitlisted domain
+     *
+     * @param User $user
+     *
+     * @return bool true, if domain is whitelisted
+     */
+    protected function approveUserAutomatically($user)
+    {
+        // get configuration
+        $whitelistDomainsAllowed = GeneralUtility::trimExplode(',',
+            $this->settings['new']['autoApprovement']['whitelistDomains']['allowTopLevelDomains']);
+
+        $whitelistDomainsExceptions = GeneralUtility::trimExplode(',',
+            $this->settings['new']['autoApprovement']['whitelistDomains']['exceptions']);
+
+        // could be used for automatically denyments
+        // @todo add feature
+        #$blacklistDomains = t3lib_div::trimExplode(',', $this->settings['autoApprovement']['blacklistDomains']);
+
+        // get domain from user
+
+        $host_names = explode(".", $user->getEmailDomain());
+
+        $userTopLevelDomain = '.' . end($host_names);
+
+        // check if user domain is allowed
+        if (in_array($userTopLevelDomain, $whitelistDomainsAllowed)) {
+            // check if the domain has a restriction
+
+            if (in_array($user->getEmailDomain(), $whitelistDomainsExceptions)) {
+                return false;
+            }
+            if ($this->doApprovement($user->getUid())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param int $user
+     * @param string $status
+     * @return mixed
+     */
+    protected function doApprovement($user, $status = '')
+    {
+        $user = FrontendUtility::forceValues($user, $this->config['new.']['forceValues.']['onAdminConfirmation.']);
+        $user->setTxFemanagerConfirmedbyadmin(true);
+        $user->setDisable(false);
+        $this->userRepository->update($user);
+        $this->addFlashMessage(LocalizationUtility::translate('create'));
+        LogUtility::log(Log::STATUS_REGISTRATIONCONFIRMEDADMIN, $user);
+        $this->finalCreate($user, 'new', 'createStatus', false, $status = '');
+
+        return true;
+    }
+
 }
+
+

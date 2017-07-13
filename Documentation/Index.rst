@@ -7,13 +7,13 @@ femanager
 .. only:: html
 
 	:Copyright:
-		2013 - 2016
+		2013 - 2017
 
 	:Classification:
 		femanager
 
 	:Version:
-		2.6
+		3.0
 
 	:Language:
 		en
@@ -22,7 +22,7 @@ femanager
 		TYPO3 frontend user registration, sr_feuser_register
 
 	:Author:
-		Alex Kellner
+		Alex Kellner, Stefan Busemann
 
 	:Email:
 		alexander.kellner@in2code.de

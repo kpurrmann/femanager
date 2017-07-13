@@ -1,15 +1,14 @@
-.. include:: ../Includes.txt
+.. include:: ../../Includes.txt
 
-=========
-Features
-=========
+===============
+Auto Approvment
+===============
 
-This is an overview of Features (Version 3.0 or higher)
+Since Version 3.0
 
-.. toctree::
-	:maxdepth: 3
-	:titlesonly:
-	:glob:
+If you activate admin approvement, you need to confirm all users manually. In some case you might like to set up
+ auto appprovements. For exmaple you clould withlist complete top level domains (those with a little spam factor
+ f.e. .de or .ch domains). If a user of a withlisted domain will register, he is approved automatically.
 
-	AutoApprovemtn/Index
+Configuration:
 
