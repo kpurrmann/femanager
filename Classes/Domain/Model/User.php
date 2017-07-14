@@ -420,5 +420,3 @@ class User extends FrontendUser
         return $emailDomain;
     }
 }
-
-}
