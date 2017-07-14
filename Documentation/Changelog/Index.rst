@@ -27,6 +27,18 @@ Changes
    :Changes:
       Changes
 
+    - :Version:
+         2.7.0
+      :State:
+         beta
+      :Date:
+
+      :Changes:
+
+         * Feature TYPO3 8 compatible
+         * Feature Backend User Approvement
+         * Feature Auto Approvement of User
+
  - :Version:
       2.6.0
    :State:
