@@ -125,7 +125,7 @@ parameter =               1
 #			adminConfirmationRefusedSilentRedirect {
 #				typolink {
 #					parameter = 1
-#					returnLast = url
+#					returnLast =   url
 #					#linkAccessRestrictedPages = 1
 #				}
 #			}
