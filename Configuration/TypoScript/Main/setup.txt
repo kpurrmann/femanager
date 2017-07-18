@@ -41,6 +41,9 @@ plugin.tx_femanager {
 #				email.value = test@in2code.de
 			}
 
+			#activates admin confirmation
+#			confirmByAdmin = 1
+
 			# redirect user (or admin if adminconfirmation) after profile creation (could be a PID, URL or fileadmin-Link
 #			redirect = TEXT
 #			redirect {
@@ -109,12 +112,13 @@ plugin.tx_femanager {
 #			adminConfirmationRefusedSilentRedirect {
 #				typolink {
 #					parameter = 1
-#					returnLast = url
+#					returnLast =   url
 #					#linkAccessRestrictedPages = 1
 #				}
 #			}
 #			autoApprovement = 1
 #			autoApprovement {
+#			   enable = 1
 #				whitelistDomains {
 #					allowTopLevelDomains = .de, .ch, .at
 #              exceptions = web.de, gmail.de
