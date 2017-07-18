@@ -181,7 +181,7 @@ abstract class AbstractController extends ActionController
             StringUtility::makeEmailArray($user->getEmail(), $user->getUsername()),
             [
                 $this->settings['new']['email']['createUserConfirmation']['sender']['email']['value'] =>
-                    $this->settings['settings']['new']['email']['createUserConfirmation']['sender']['name']['value']
+                    $this->settings['new']['email']['createUserConfirmation']['sender']['name']['value']
             ],
             'Confirm your profile creation request',
             [
