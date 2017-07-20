@@ -170,23 +170,6 @@ class NewController extends AbstractController
 
             if ($this->isAdminConfirmationMissing($user)) {
 
-                // auto approvement
-                if ($this->settings['new']['autoApprovement'] == 1) {
-                    if ($this->approveUserAutomatically($user)) {
-                        $this->signalSlotDispatcher->dispatch(
-                            __CLASS__,
-                            __FUNCTION__ . 'AutoApprovementDone',
-                            [$user, $this]
-                        );
-                    } else {
-                        $this->signalSlotDispatcher->dispatch(
-                            __CLASS__,
-                            __FUNCTION__ . 'AutoApprovementRefused',
-                            [$user, $this]
-                        );
-                    };
-                }
-
                 $this->sendMailService->send(
                     'createAdminConfirmation',
                     StringUtility::makeEmailArray(
