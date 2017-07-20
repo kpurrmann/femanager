@@ -337,7 +337,7 @@ class User extends FrontendUser
 
     /**
      * Check if last FE login was within the last 2h
-     * 
+     *
      * @return boolean
      */
     public function isOnline()
@@ -414,8 +414,8 @@ class User extends FrontendUser
      */
     public function getEmailDomain() {
         $emailDomain = '';
-        if ($this->getEmail() && strrchr($this->getEmail, "@")) {
-            $emailDomain = substr(strrchr($this->getEmail, "@"), 1);
+        if ($this->getEmail() && strrchr($this->getEmail(), "@")) {
+            $emailDomain = substr(strrchr($this->getEmail(), "@"), 1);
         }
         return $emailDomain;
     }

@@ -182,7 +182,7 @@ abstract class AbstractController extends ActionController
             StringUtility::makeEmailArray($user->getEmail(), $user->getUsername()),
             [
                 $this->settings['new']['email']['createUserConfirmation']['sender']['email']['value'] =>
-                    $this->settings['settings']['new']['email']['createUserConfirmation']['sender']['name']['value']
+                    $this->settings['new']['email']['createUserConfirmation']['sender']['name']['value']
             ],
             'Confirm your profile creation request',
             [
@@ -297,15 +297,12 @@ abstract class AbstractController extends ActionController
      * @param string $redirectByActionName Action to redirect
      * @param bool $login Login after creation
      * @param string $status
-     * @param array $status
+     * @param bool $allowRedirect if true, this function will redirect to any action that is defined
      * @return void
      */
-    public function finalCreate($user, $action, $redirectByActionName, $login = true, $status = '',$config)
+    public function finalCreate($user, $action, $redirectByActionName, $login = true, $status = '', $allowRedirect=true)
     {
         $this->loginPreflight($user, $login);
-        if ($config) {
-            $this->settings = $config;
-        }
         $variables = ['user' => $user, 'settings' => $this->settings];
         $this->sendMailService->send(
             'createUserNotify',
@@ -335,8 +332,10 @@ abstract class AbstractController extends ActionController
         }
         $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'AfterPersist', [$user, $action, $this]);
         $this->finisherRunner->callFinishers($user, $this->actionMethodName, $this->settings, $this->contentObject);
-        $this->redirectByAction($action, ($status ? $status . 'Redirect' : 'redirect'));
-        $this->redirect($redirectByActionName);
+        if ($allowRedirect===true) {
+            $this->redirectByAction($action, ($status ? $status . 'Redirect' : 'redirect'));
+            $this->redirect($redirectByActionName);
+        }
     }
 
     /**

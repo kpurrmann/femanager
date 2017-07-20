@@ -170,23 +170,6 @@ class NewController extends AbstractController
 
             if ($this->isAdminConfirmationMissing($user)) {
 
-                // auto approvement
-                if ($this->settings['new']['autoApprovement'] == 1) {
-                    if ($this->approveUserAutomatically($user)) {
-                        $this->signalSlotDispatcher->dispatch(
-                            __CLASS__,
-                            __FUNCTION__ . 'AutoApprovementDone',
-                            [$user, $this]
-                        );
-                    } else {
-                        $this->signalSlotDispatcher->dispatch(
-                            __CLASS__,
-                            __FUNCTION__ . 'AutoApprovementRefused',
-                            [$user, $this]
-                        );
-                    };
-                }
-
                 $this->sendMailService->send(
                     'createAdminConfirmation',
                     StringUtility::makeEmailArray(
@@ -253,7 +236,7 @@ class NewController extends AbstractController
     protected function statusAdminConfirmation(User $user, $hash, $status)
     {
         if (HashUtility::validHash($hash, $user)) {
-            $this->doApprovement($user->getUid(), $status);
+            $this->doApprovement($user, $status);
         } else {
             $this->addFlashMessage(LocalizationUtility::translate('createFailedProfile'), '', FlashMessage::ERROR);
 
@@ -323,12 +306,37 @@ class NewController extends AbstractController
     }
 
     /**
+     *
+     * Returns true if admin confirmation is needed
+     *
      * @param User $user
      * @return bool
      */
     protected function isAdminConfirmationMissing(User $user)
     {
-        return !empty($this->settings['new']['confirmByAdmin']) && !$user->getTxFemanagerConfirmedbyadmin();
+
+        $needsAdminConfirmation = !empty($this->settings['new']['confirmByAdmin']) && !$user->getTxFemanagerConfirmedbyadmin();
+
+        // auto approvement
+        if ($this->settings['new']['autoApprovement']['enable'] == 1) {
+            if ($this->approveUserAutomatically($user)) {
+                $needsAdminConfirmation = false;
+                $this->signalSlotDispatcher->dispatch(
+                    __CLASS__,
+                    __FUNCTION__ . 'AutoApprovementDone',
+                    [$user, $this]
+                );
+            } else {
+                $needsAdminConfirmation = true;
+                $this->signalSlotDispatcher->dispatch(
+                    __CLASS__,
+                    __FUNCTION__ . 'AutoApprovementRefused',
+                    [$user, $this]
+                );
+            };
+        }
+
+        return $needsAdminConfirmation;
     }
 
 
@@ -365,7 +373,7 @@ class NewController extends AbstractController
             if (in_array($user->getEmailDomain(), $whitelistDomainsExceptions)) {
                 return false;
             }
-            if ($this->doApprovement($user->getUid())) {
+            if ($this->doApprovement($user)) {
                 return true;
             }
         }
@@ -374,7 +382,7 @@ class NewController extends AbstractController
     }
 
     /**
-     * @param int $user
+     * @param User $user
      * @param string $status
      * @return mixed
      */
@@ -386,7 +394,7 @@ class NewController extends AbstractController
         $this->userRepository->update($user);
         $this->addFlashMessage(LocalizationUtility::translate('create'));
         LogUtility::log(Log::STATUS_REGISTRATIONCONFIRMEDADMIN, $user);
-        $this->finalCreate($user, 'new', 'createStatus', false, $status = '');
+        $this->finalCreate($user, 'new', 'createStatus', false, $status = '', false);
 
         return true;
     }
