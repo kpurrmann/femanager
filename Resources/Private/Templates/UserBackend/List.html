@@ -9,23 +9,46 @@ UserBackend / List
 	<div class="typo3-TCEforms">
 		<div role="tabpanel">
 			<ul class="nav nav-tabs t3js-tabs" role="tablist" id="tabs-DTM-af56df637b" data-store-last-tab="1">
-				<li role="presentation" class="t3js-tabmenu-item active">
-					<a href="#DTM-af56df637b-1" title="" aria-controls="DTM-af56df637b-1" role="tab" data-toggle="tab">
-						Approve Users
-					</a>
-				</li>
-				<li role="presentation" class="t3js-tabmenu-item">
-					<a href="#DTM-af56df637b-2" title="" aria-controls="DTM-af56df637b-2" role="tab" data-toggle="tab">
-						Manage Users
-					</a>
-				</li>
+				<f:if condition="{approveUsers}">
+					<f:then>
+						<li role="presentation" class="t3js-tabmenu-item active">
+							<a href="#DTM-af56df637b-1" title="" aria-controls="DTM-af56df637b-1" role="tab" data-toggle="tab">
+								Approve Users
+							</a>
+						</li>
+						<li role="presentation" class="t3js-tabmenu-item">
+							<a href="#DTM-af56df637b-2" title="" aria-controls="DTM-af56df637b-2" role="tab" data-toggle="tab">
+								Manage Users
+							</a>
+						</li>
+					</f:then>
+					<f:else>
+						<li role="presentation" class="t3js-tabmenu-item">
+							<a href="#DTM-af56df637b-1" title="" aria-controls="DTM-af56df637b-1" role="tab" data-toggle="tab">
+								Approve Users
+							</a>
+						</li>
+						<li role="presentation" class="t3js-tabmenu-item active">
+							<a href="#DTM-af56df637b-2" title="" aria-controls="DTM-af56df637b-2" role="tab" data-toggle="tab">
+								Manage Users
+							</a>
+						</li>
+					</f:else>
+				</f:if>
+
 			</ul>
 		</div>
 
 		<div class="tab-content">
 
-
-			<div role="tabpanel" class="tab-pane active" id="DTM-af56df637b-1">
+			<f:if condition="{approveUsers}">
+				<f:then>
+					<div role="tabpanel" class="tab-pane active" id="DTM-af56df637b-1">
+				</f:then>
+				<f:else>
+					<div role="tabpanel" class="tab-pane" id="DTM-af56df637b-1">
+				</f:else>
+			</f:if>
 				<fieldset class="form-section">
 
 					<h3>Open Approvals ({approveUsers -> f:count()})</h3>
@@ -67,8 +90,15 @@ UserBackend / List
 
 				</fieldset>
 			</div>
+			<f:if condition="{approveUsers}">
+				<f:then>
+					<div role="tabpanel" class="tab-pane" id="DTM-af56df637b-2">
+				</f:then>
+				<f:else>
+					<div role="tabpanel" class="tab-pan active" id="DTM-af56df637b-2">
+				</f:else>
+			</f:if>
 
-			<div role="tabpanel" class="tab-pane" id="DTM-af56df637b-2">
 				<fieldset class="form-section">
 					<div class="femanager_list">
 						<f:render partial="Misc/FlashMessages" arguments="{_all}" />
@@ -79,6 +109,8 @@ UserBackend / List
 							<f:then>
 
 								<f:be.widget.paginate objects="{users}" as="usersPage" configuration="{itemsPerPage: 100, insertBelow: 1}">
+									<div class="table-fit">
+
 									<table cellspacing="0" cellpadding="0" border="0" class="{f:if(condition:'{femanager:Condition.IsCompatVersion(versionNumber:\'7.0\')}', then: 'table table-striped table-hover', else: 'typo3-dblist')}">
 										<tbody>
 
@@ -113,6 +145,7 @@ UserBackend / List
 											<td nowrap="nowrap">
 												<f:translate key="tx_femanager_domain_model_user.usergroup" />
 											</td>
+											<td nowrap="nowrap" class="col-icon">Actions</td>
 											<td nowrap="nowrap">
 												<f:translate key="tx_femanager_domain_model_user.lastlogin" />
 											</td>
@@ -122,7 +155,7 @@ UserBackend / List
 											<td nowrap="nowrap">
 												PID
 											</td>
-											<td nowrap="nowrap" class="col-icon"></td>
+
 										</tr>
 
 										<f:for each="{usersPage}" as="user">
@@ -131,11 +164,13 @@ UserBackend / List
 													<f:if condition="{user.disable}">
 														<f:then>
 															<span  title="id={user.uid} - Hidden">
-																<core:icon identifier="actions-edit-unhide"/>
+																<core:icon identifier="status-user-frontend"/>
 															</span>
 														</f:then>
 														<f:else>
-															<span title="id={user.uid}"><core:icon identifier="actions-edit-hide"/></span>
+															<span title="id={user.uid}">
+																<core:icon identifier="status-user-frontend" size="small" overlay="overlay-hidden" state="disabled"/>
+															</span>
 														</f:else>
 													</f:if>
 												</td>
@@ -143,6 +178,10 @@ UserBackend / List
 													<f:if condition="{user.online}">
 														<f:then>
 															<span class="label label-success">online</span>
+															<f:link.action action="userLogout" arguments="{user:user}" class="logoutUser" title="Logout">
+																<core:icon identifier="actions-logout" />
+															</f:link.action>
+
 														</f:then>
 														<f:else>
 
@@ -169,21 +208,28 @@ UserBackend / List
 													</f:for>
 												</td>
 												<td nowrap="nowrap">
-													<f:format.date format="d.m.Y H:i">{user.lastlogin}</f:format.date>
-												</td>
-												<td nowrap="nowrap">
-													{user.uid}
-												</td>
-												<td nowrap="nowrap">
-													{user.pid}
-												</td>
-												<td nowrap="nowrap">
 													<f:comment>
 														Edit Icon
 													</f:comment>
 													<a title="Edit" href="{femanager:Misc.BackendEditLink(tableName:'fe_users',identifier:user.uid)}">
 														<core:icon identifier="actions-open"/>
 													</a>
+
+													<f:comment>
+														hide / unhide
+													</f:comment>
+													<f:if condition="{user.disable}">
+														<f:then>
+															<span  title="id={user.uid} - Hidden">
+																<core:icon identifier="actions-edit-unhide"/>
+															</span>
+														</f:then>
+														<f:else>
+															<span title="id={user.uid}">
+																<core:icon identifier="actions-edit-hide"/>
+															</span>
+														</f:else>
+													</f:if>
 
 													<f:comment>
 														Delete Icon
@@ -205,20 +251,28 @@ UserBackend / List
 													<f:comment>
 														Logout Icon
 													</f:comment>
-													<f:link.action action="userLogout" arguments="{user:user}" class="logoutUser" title="Logout">
-														<core:icon identifier="actions-logout" />
-													</f:link.action>
 
 													<input type="hidden" class="container_uid" name="container_uid" value="{user.uid}" />
 													<input type="hidden" class="container_module_uri" name="container_module_uri" value="{moduleUri}" />
 													<input type="hidden" class="container_table" name="container_table" value="fe_users" />
 													<input type="hidden" class="container_label_delete_confirmation" name="container_label_delete_confirmation" value="{f:translate(key:'BackendListUserDeleteConfirmation')}" />
 												</td>
+												<td nowrap="nowrap">
+													<f:format.date format="d.m.Y H:i">{user.lastlogin}</f:format.date>
+												</td>
+												<td nowrap="nowrap">
+													{user.uid}
+												</td>
+												<td nowrap="nowrap">
+													{user.pid}
+												</td>
+
 											</tr>
 										</f:for>
 
 										</tbody>
 									</table>
+									</div>
 								</f:be.widget.paginate>
 
 							</f:then>
