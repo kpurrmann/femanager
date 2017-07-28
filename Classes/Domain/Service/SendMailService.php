@@ -78,7 +78,14 @@ class SendMailService
     {
         // config
         $email = $this->objectManager->get(MailMessage::class);
-        $this->cObj = $this->configurationManager->getContentObject();
+        if (TYPO3_MODE === 'BE')
+            $this->initTSFE();
+            $this->cObj = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
+        {
+            $this->cObj = $this->configurationManager->getContentObject();
+        }
+
+
         if (!empty($variables['user']) && method_exists($variables['user'], '_getProperties')) {
             $this->cObj->start($variables['user']->_getProperties());
         }
@@ -86,7 +93,6 @@ class SendMailService
         DebuggerUtility::var_dump($typoScript['_enable']);
         DebuggerUtility::var_dump($typoScript['_enable.']);
         DebuggerUtility::var_dump($this->cObj);
-        die;
 
         if (!$this->cObj->cObjGetSingle($typoScript['_enable'], $typoScript['_enable.']) || count($receiver) === 0) {
             return false;
@@ -190,7 +196,6 @@ class SendMailService
     protected function getMailBody($template, $variables)
     {
         $standAloneView = TemplateUtility::getDefaultStandAloneView();
-        die('hard');
         $standAloneView->setTemplatePathAndFilename($this->getRelativeEmailPathAndFilename($template));
         $standAloneView->assignMultiple($variables);
         return $standAloneView->render();
@@ -206,4 +211,21 @@ class SendMailService
     {
         return TemplateUtility::getTemplatePath('Email/' . ucfirst($fileName) . '.html');
     }
+
+    protected function initTSFE($id = 1, $typeNum = 0)
+    {
+        if (!is_object($GLOBALS['TT'])) {
+            $GLOBALS['TT'] = new \TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
+            $GLOBALS['TT']->start();
+        }
+        $GLOBALS['TSFE'] = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController',
+            $GLOBALS['TYPO3_CONF_VARS'], $id, $typeNum);
+        $GLOBALS['TSFE']->connectToDB();
+        $GLOBALS['TSFE']->initFEuser();
+        $GLOBALS['TSFE']->determineId();
+        $GLOBALS['TSFE']->initTemplate();
+        $GLOBALS['TSFE']->getConfigArray();
+
+    }
+
 }
