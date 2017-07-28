@@ -82,18 +82,19 @@ class UserBackendController extends AbstractController
     public function approveUserAction($userID)
     {
         $user = $this->userRepository->findByUid($userID);
-        $user = FrontendUtility::forceValues($user, $this->config['new.']['forceValues.']['onAdminConfirmation.']);
-        #DebuggerUtility::var_dump($user);
 
+        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ , [$user, $this]);
+        $user = FrontendUtility::forceValues($user, $this->config['new.']['forceValues.']['onAdminConfirmation.']);
         $user->setTxFemanagerConfirmedbyadmin(true);
         $user->setDisable(false);
         LogUtility::log(Log::STATUS_REGISTRATIONCONFIRMEDADMIN, $user);
         $this->userRepository->update($user);
-        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'approveUserAction', [$user, $this]);
 
         $this->addFlashMessage($user->getName() . '  successfully approved');
 
-        $this->finalCreate($user, 'list', 'createStatus', false, $status='', $this->config);
+        $this->finalCreate($user, 'list', 'createStatus', false, $status='', false);
+
+        $this->redirect('list');
     }
 
     /**
@@ -105,9 +106,9 @@ class UserBackendController extends AbstractController
     public function declineUserAction($userID)
     {
         $user = $this->userRepository->findByUid($userID);
-        $this->userRepository->remove($user);
+        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ , [$user, $this]);
 
-        $this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'declineUserAction', [$user, $this]);
+        $this->userRepository->remove($user);
 
         $this->addFlashMessage($user->getName() . '  was declined');
         $this->redirect('list');
