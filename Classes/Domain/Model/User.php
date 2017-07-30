@@ -400,6 +400,16 @@ class User extends FrontendUser
     }
 
     /**
+     * Approves this user
+     *
+     * @param null $propertyName
+     * @return bool
+     */
+    public function approveUser() {
+        $this->setTxFemanagerConfirmedbyadmin(true);
+    }
+
+    /**
      * @return string of the email domain
      */
     public function getEmailDomain() {

@@ -7,16 +7,16 @@ if (!defined('TYPO3_MODE')) {
     'In2code.femanager',
     'Pi1',
     [
-        'User' => 'list, show, fileUpload, fileDelete, validate, loginAs',
+        'User' => 'list, show, fileUpload, fileDelete, validate, loginAs, approveUser, declineUser',
         'New' => 'create, new, confirmCreateRequest, createStatus',
         'Edit' => 'edit, update, delete, confirmUpdateRequest',
-        'Invitation' => 'new, create, edit, update, delete, status'
+        'Invitation' => 'new, create, edit, update, delete, status',
     ],
     [
-        'User' => 'list, fileUpload, fileDelete, validate, loginAs',
+        'User' => 'list, fileUpload, fileDelete, validate, loginAs, approveUser, declineUser',
         'New' => 'create, new, confirmCreateRequest, createStatus',
         'Edit' => 'edit, update, delete, confirmUpdateRequest',
-        'Invitation' => 'new, create, edit, update, delete'
+        'Invitation' => 'new, create, edit, update, delete',
     ]
 );
 

@@ -180,10 +180,9 @@ class UserRepository extends Repository
     /**
      * Find All for Backend Actions
      *
-     * @param array $filter Filter Array
      * @return QueryResultInterface|array
      */
-    public function findAllInBackend($filter)
+    public function findAllInBackend()
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
@@ -268,5 +267,27 @@ class UserRepository extends Repository
     protected function getPageIdentifier()
     {
         return (int)GeneralUtility::_GET('id');
+    }
+
+
+    /**
+     * Overload Find by UID to also get hidden records
+     *
+     * @param int $uid fe_users UID
+     * @return QueryResultInterface|array
+     */
+    public function findOpenApprovals()
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setIgnoreEnableFields(true);
+        $query->getQuerySettings()->setRespectSysLanguage(false);
+        $query->getQuerySettings()->setRespectStoragePage(false);
+        $and = [
+            $query->equals('deleted', 0),
+            $query->equals('tx_femanager_confirmedbyuser', 1),
+            $query->equals('tx_femanager_confirmedbyadmin', 0)
+        ];
+        $object = $query->matching($query->logicalAnd($and))->execute();
+        return $object;
     }
 }

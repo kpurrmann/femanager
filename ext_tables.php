@@ -19,7 +19,7 @@ if (!\In2code\Femanager\Utility\ConfigurationUtility::isDisableModuleActive() &&
         'm1',
         '',
         [
-            'UserBackend' => 'list,userLogout'
+            'UserBackend' => 'list,userLogout,approveUser,declineUser'
         ],
         [
             'access' => 'user,group',
