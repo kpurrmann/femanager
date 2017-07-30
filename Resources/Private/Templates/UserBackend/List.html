@@ -163,13 +163,13 @@ UserBackend / List
 												<td nowrap="nowrap" class="col-icon">
 													<f:if condition="{user.disable}">
 														<f:then>
-															<span  title="id={user.uid} - Hidden">
-																<core:icon identifier="status-user-frontend"/>
+															<span title="id={user.uid}">
+																<core:icon identifier="status-user-frontend" size="small" overlay="overlay-hidden" state="disabled"/>
 															</span>
 														</f:then>
 														<f:else>
-															<span title="id={user.uid}">
-																<core:icon identifier="status-user-frontend" size="small" overlay="overlay-hidden" state="disabled"/>
+															<span  title="id={user.uid} - Hidden">
+																<core:icon identifier="status-user-frontend"/>
 															</span>
 														</f:else>
 													</f:if>
@@ -214,30 +214,6 @@ UserBackend / List
 													<a title="Edit" href="{femanager:Misc.BackendEditLink(tableName:'fe_users',identifier:user.uid)}">
 														<core:icon identifier="actions-open"/>
 													</a>
-
-													<f:comment>
-														hide / unhide
-													</f:comment>
-													<f:if condition="{user.disable}">
-														<f:then>
-															<span  title="id={user.uid} - Hidden">
-																<core:icon identifier="actions-edit-unhide"/>
-															</span>
-														</f:then>
-														<f:else>
-															<span title="id={user.uid}">
-																<core:icon identifier="actions-edit-hide"/>
-															</span>
-														</f:else>
-													</f:if>
-
-													<f:comment>
-														Delete Icon
-													</f:comment>
-													<span  title="{f:translate(key:'BackendListMailDelete')}">
-														<core:icon identifier="actions-delete"/>
-													</span>
-
 
 													<f:comment>
 														Login as Icon
