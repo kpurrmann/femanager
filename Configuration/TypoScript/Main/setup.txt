@@ -18,6 +18,7 @@ plugin.tx_femanager {
 	}
 	features {
 		rewrittenPropertyMapper = 1
+		requireCHashArgumentForActionArguments =  0
 	}
 
 	settings {
