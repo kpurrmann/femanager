@@ -132,32 +132,31 @@ UserBackend / List
 								</td>
 								<td nowrap="nowrap" class="col-icon">
 
-								</td>
-								<td nowrap="nowrap" class="col-title">
-									<f:translate key="tx_femanager_domain_model_user.username" />
-								</td>
-								<td nowrap="nowrap">
-									<f:translate key="tx_femanager_domain_model_user.email" />
-								</td>
-								<td nowrap="nowrap">
-									<f:translate key="tx_femanager_domain_model_user.name" />
-								</td>
-								<td nowrap="nowrap">
-									<f:translate key="tx_femanager_domain_model_user.usergroup" />
-								</td>
-								<td nowrap="nowrap"class="col-icon">Actions
-								</td>
-								<td nowrap="nowrap">
-									<f:translate key="tx_femanager_domain_model_user.lastlogin" />
-								</td>
-								<td nowrap="nowrap">
-									UID
-								</td>
-								<td nowrap="nowrap">
-									PID
-								</td>
+											</td>
+											<td nowrap="nowrap" class="col-title">
+												<f:translate key="tx_femanager_domain_model_user.username" />
+											</td>
+											<td nowrap="nowrap">
+												<f:translate key="tx_femanager_domain_model_user.email" />
+											</td>
+											<td nowrap="nowrap">
+												<f:translate key="tx_femanager_domain_model_user.name" />
+											</td>
+											<td nowrap="nowrap">
+												<f:translate key="tx_femanager_domain_model_user.usergroup" />
+											</td>
+											<td nowrap="nowrap"class="col-icon">Actions</td>
+											<td nowrap="nowrap">
+												<f:translate key="tx_femanager_domain_model_user.lastlogin" />
+											</td>
+											<td nowrap="nowrap">
+												UID
+											</td>
+											<td nowrap="nowrap">
+												PID
+											</td>
 
-							</tr>
+										</tr>
 
 							<f:for each="{usersPage}" as="user">
 								<tr class="db_list_normal firstcol femanager_list_line">
@@ -223,9 +222,9 @@ UserBackend / List
 											</a>
 										</f:if>
 
-										<f:comment>
-											Logout Icon
-										</f:comment>
+													<f:comment>
+														Logout Icon
+													</f:comment>
 
 
 										<input type="hidden" class="container_uid" name="container_uid" value="{user.uid}" />
@@ -246,9 +245,8 @@ UserBackend / List
 											</tr>
 							</f:for>
 
-						</tbody>
-					</table>
-				</div>
+										</tbody>
+									</table></div>
 								</f:be.widget.paginate>
 
 							</f:then>
