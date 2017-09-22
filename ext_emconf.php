@@ -23,18 +23,21 @@ $EM_CONF[$_EXTKEY] = [
     'modify_tables' => '',
     'clearCacheOnLoad' => 0,
     'lockType' => '',
-    'version' => '3.0.0',
+    'version' => '3.1.2',
     'constraints' => [
         'depends' => [
-            'extbase' => '7.6.0-8.99.99',
-            'fluid' => '7.6.0-8.99.99',
-            'typo3' => '7.6.0-8.99.99',
-            'php' => '5.5.0-8.99.99',
+            'typo3' => '8.7.0-8.99.99',
+            'php' => '7.0.0-7.99.99',
         ],
         'conflicts' => [],
         'suggests' => [
             'sr_freecap' => '2.3.0-2.99.99',
             'static_info_tables' => '6.0.0-8.99.99'
         ],
+    ],
+    'autoload' => [
+        'psr-4' => [
+            'In2code\\Femanager\\' => 'Classes'
+        ]
     ],
 ];

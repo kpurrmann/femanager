@@ -1,13 +1,11 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Femanager\ViewHelpers\Validation;
 
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
- * Check if this field is a required field
- *
- * @package TYPO3
- * @subpackage Fluid
+ * Class IsRequiredFieldViewHelper
  */
 class IsRequiredFieldViewHelper extends AbstractValidationViewHelper
 {
@@ -35,9 +33,8 @@ class IsRequiredFieldViewHelper extends AbstractValidationViewHelper
      */
     protected function getSettingsConfiguration()
     {
-        $configuration = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+        return (array)$this->configurationManager->getConfiguration(
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
         );
-        return (array) $configuration['settings'];
     }
 }

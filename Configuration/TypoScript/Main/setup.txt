@@ -17,8 +17,7 @@ plugin.tx_femanager {
 		storagePid = {$plugin.tx_femanager.persistence.storagePid}
 	}
 	features {
-		rewrittenPropertyMapper = 1
-		requireCHashArgumentForActionArguments =  0
+		#skipDefaultArguments = 1requireCHashArgumentForActionArguments =  0
 	}
 
 	settings {
@@ -233,17 +232,27 @@ parameter =               1
 					# Add Embed Images (separate each with comma) - can be used in mail with <img src="{embedImages.0}" /> and so on...
 #					embedImage = COA
 #					embedImage {
-#						10 = IMG_RESOURCE
+#						10 = FILES
 #						10 {
-#							wrap = |,
-#							file.import = uploads/pics/
-#							file.import.field = image
-#							file.import.listNum = 0
-#							file.maxW = 120
-#							file.maxH = 120
+#							references {
+#								table = fe_users
+#								fieldName = image
+#								uid.field = uid
+#							}
+
+#							begin = 0
+#							maxItems = 1
+
+#							renderObj = IMG_RESOURCE
+#							renderObj {
+#								file.import.dataWrap = {file:current:storage}:{file:current:identifier}
+#								file.maxW = 120
+#								file.maxH = 120
+#							}
 #						}
 
 #						20 = TEXT
+#						20.wrap = ,|
 #						20.value = fileadmin/image.jpg
 #					}
 				}
@@ -301,17 +310,27 @@ parameter =               1
 					# Add Embed Images (separate each with comma) - can be used in mail with <img src="{embedImages.0}" /> and so on...
 					embedImage = COA
 					embedImage {
-						10 = IMG_RESOURCE
+						10 = FILES
 						10 {
-							wrap = |,
-							file.import = uploads/pics/
-							file.import.field = image
-							file.import.listNum = 0
-							file.maxW = 120
-							file.maxH = 120
+							references {
+								table = fe_users
+								fieldName = image
+								uid.field = uid
+							}
+
+							begin = 0
+							maxItems = 1
+
+							renderObj = IMG_RESOURCE
+							renderObj {
+								file.import.dataWrap = {file:current:storage}:{file:current:identifier}
+								file.maxW = 120
+								file.maxH = 120
+							}
 						}
 
 #						20 = TEXT
+#						20.wrap = ,|
 #						20.value = fileadmin/image.jpg
 					}
 				}
@@ -324,7 +343,7 @@ parameter =               1
 
 					# (de)activate email completely
 					_enable = TEXT
-					_enable.value = 1
+					_enable.value = 0
 
 					# Overwrite Receivers (please fill both)
 					receiver {
@@ -369,17 +388,27 @@ parameter =               1
 					# Add Embed Images (separate each with comma) - can be used in mail with <img src="{embedImages.0}" /> and so on...
 #					embedImage = COA
 #					embedImage {
-#						10 = IMG_RESOURCE
+#						10 = FILES
 #						10 {
-#							wrap = |,
-#							file.import = uploads/pics/
-#							file.import.field = image
-#							file.import.listNum = 0
-#							file.maxW = 120
-#							file.maxH = 120
+#							references {
+#								table = fe_users
+#								fieldName = image
+#								uid.field = uid
+#							}
+
+#							begin = 0
+#							maxItems = 1
+
+#							renderObj = IMG_RESOURCE
+#							renderObj {
+#								file.import.dataWrap = {file:current:storage}:{file:current:identifier}
+#								file.maxW = 120
+#								file.maxH = 120
+#							}
 #						}
 
 #						20 = TEXT
+#						20.wrap = ,|
 #						20.value = fileadmin/image.jpg
 #					}
 				}
@@ -437,17 +466,27 @@ parameter =               1
 					# Add Embed Images (separate each with comma) - can be used in mail with <img src="{embedImages.0}" /> and so on...
 #					embedImage = COA
 #					embedImage {
-#						10 = IMG_RESOURCE
+#						10 = FILES
 #						10 {
-#							wrap = |,
-#							file.import = uploads/pics/
-#							file.import.field = image
-#							file.import.listNum = 0
-#							file.maxW = 120
-#							file.maxH = 120
+#							references {
+#								table = fe_users
+#								fieldName = image
+#								uid.field = uid
+#							}
+
+#							begin = 0
+#							maxItems = 1
+
+#							renderObj = IMG_RESOURCE
+#							renderObj {
+#								file.import.dataWrap = {file:current:storage}:{file:current:identifier}
+#								file.maxW = 120
+#								file.maxH = 120
+#							}
 #						}
 
 #						20 = TEXT
+#						20.wrap = ,|
 #						20.value = fileadmin/image.jpg
 #					}
 				}
@@ -505,17 +544,27 @@ parameter =               1
 					# Add Embed Images (separate each with comma) - can be used in mail with <img src="{embedImages.0}" /> and so on...
 					embedImage = COA
 					embedImage {
-						10 = IMG_RESOURCE
+						10 = FILES
 						10 {
-							wrap = |,
-							file.import = uploads/pics/
-							file.import.field = image
-							file.import.listNum = 0
-							file.maxW = 120
-							file.maxH = 120
+							references {
+								table = fe_users
+								fieldName = image
+								uid.field = uid
+							}
+
+							begin = 0
+							maxItems = 1
+
+							renderObj = IMG_RESOURCE
+							renderObj {
+								file.import.dataWrap = {file:current:storage}:{file:current:identifier}
+								file.maxW = 120
+								file.maxH = 120
+							}
 						}
 
 #						20 = TEXT
+#						20.wrap = ,|
 #						20.value = fileadmin/image.jpg
 					}
 				}
@@ -783,17 +832,27 @@ parameter =               1
 					# Add Embed Images (separate each with comma) - can be used in mail with <img src="{embedImages.0}" /> and so on...
 #					embedImage = COA
 #					embedImage {
-#						10 = IMG_RESOURCE
+#						10 = FILES
 #						10 {
-#							wrap = |,
-#							file.import = uploads/pics/
-#							file.import.field = image
-#							file.import.listNum = 0
-#							file.maxW = 120
-#							file.maxH = 120
+#							references {
+#								table = fe_users
+#								fieldName = image
+#								uid.field = uid
+#							}
+
+#							begin = 0
+#							maxItems = 1
+
+#							renderObj = IMG_RESOURCE
+#							renderObj {
+#								file.import.dataWrap = {file:current:storage}:{file:current:identifier}
+#								file.maxW = 120
+#								file.maxH = 120
+#							}
 #						}
 
 #						20 = TEXT
+#						20.wrap = ,|
 #						20.value = fileadmin/image.jpg
 #					}
 				}
@@ -851,17 +910,27 @@ parameter =               1
 					# Add Embed Images (separate each with comma) - can be used in mail with <img src="{embedImages.0}" /> and so on...
 #					embedImage = COA
 #					embedImage {
-#						10 = IMG_RESOURCE
+#						10 = FILES
 #						10 {
-#							wrap = |,
-#							file.import = uploads/pics/
-#							file.import.field = image
-#							file.import.listNum = 0
-#							file.maxW = 120
-#							file.maxH = 120
+#							references {
+#								table = fe_users
+#								fieldName = image
+#								uid.field = uid
+#							}
+
+#							begin = 0
+#							maxItems = 1
+
+#							renderObj = IMG_RESOURCE
+#							renderObj {
+#								file.import.dataWrap = {file:current:storage}:{file:current:identifier}
+#								file.maxW = 120
+#								file.maxH = 120
+#							}
 #						}
 
 #						20 = TEXT
+#						20.wrap = ,|
 #						20.value = fileadmin/image.jpg
 #					}
 				}
@@ -919,17 +988,27 @@ parameter =               1
 					# Add Embed Images (separate each with comma) - can be used in mail with <img src="{embedImages.0}" /> and so on...
 #					embedImage = COA
 #					embedImage {
-#						10 = IMG_RESOURCE
+#						10 = FILES
 #						10 {
-#							wrap = |,
-#							file.import = uploads/pics/
-#							file.import.field = image
-#							file.import.listNum = 0
-#							file.maxW = 120
-#							file.maxH = 120
+#							references {
+#								table = fe_users
+#								fieldName = image
+#								uid.field = uid
+#							}
+
+#							begin = 0
+#							maxItems = 1
+
+#							renderObj = IMG_RESOURCE
+#							renderObj {
+#								file.import.dataWrap = {file:current:storage}:{file:current:identifier}
+#								file.maxW = 120
+#								file.maxH = 120
+#							}
 #						}
 
 #						20 = TEXT
+#						20.wrap = ,|
 #						20.value = fileadmin/image.jpg
 #					}
 				}
@@ -1116,17 +1195,27 @@ parameter =               1
 					# Add Embed Images (separate each with comma) - can be used in mail with <img src="{embedImages.0}" /> and so on...
 #					embedImage = COA
 #					embedImage {
-#						10 = IMG_RESOURCE
+#						10 = FILES
 #						10 {
-#							wrap = |,
-#							file.import = uploads/pics/
-#							file.import.field = image
-#							file.import.listNum = 0
-#							file.maxW = 120
-#							file.maxH = 120
+#							references {
+#								table = fe_users
+#								fieldName = image
+#								uid.field = uid
+#							}
+
+#							begin = 0
+#							maxItems = 1
+
+#							renderObj = IMG_RESOURCE
+#							renderObj {
+#								file.import.dataWrap = {file:current:storage}:{file:current:identifier}
+#								file.maxW = 120
+#								file.maxH = 120
+#							}
 #						}
 
 #						20 = TEXT
+#						20.wrap = ,|
 #						20.value = fileadmin/image.jpg
 #					}
 				}
@@ -1184,17 +1273,27 @@ parameter =               1
 					# Add Embed Images (separate each with comma) - can be used in mail with <img src="{embedImages.0}" /> and so on...
 #					embedImage = COA
 #					embedImage {
-#						10 = IMG_RESOURCE
+#						10 = FILES
 #						10 {
-#							wrap = |,
-#							file.import = uploads/pics/
-#							file.import.field = image
-#							file.import.listNum = 0
-#							file.maxW = 120
-#							file.maxH = 120
+#							references {
+#								table = fe_users
+#								fieldName = image
+#								uid.field = uid
+#							}
+
+#							begin = 0
+#							maxItems = 1
+
+#							renderObj = IMG_RESOURCE
+#							renderObj {
+#								file.import.dataWrap = {file:current:storage}:{file:current:identifier}
+#								file.maxW = 120
+#								file.maxH = 120
+#							}
 #						}
 
 #						20 = TEXT
+#						20.wrap = ,|
 #						20.value = fileadmin/image.jpg
 #					}
 				}
@@ -1252,17 +1351,27 @@ parameter =               1
 					# Add Embed Images (separate each with comma) - can be used in mail with <img src="{embedImages.0}" /> and so on...
 #					embedImage = COA
 #					embedImage {
-#						10 = IMG_RESOURCE
+#						10 = FILES
 #						10 {
-#							wrap = |,
-#							file.import = uploads/pics/
-#							file.import.field = image
-#							file.import.listNum = 0
-#							file.maxW = 120
-#							file.maxH = 120
+#							references {
+#								table = fe_users
+#								fieldName = image
+#								uid.field = uid
+#							}
+
+#							begin = 0
+#							maxItems = 1
+
+#							renderObj = IMG_RESOURCE
+#							renderObj {
+#								file.import.dataWrap = {file:current:storage}:{file:current:identifier}
+#								file.maxW = 120
+#								file.maxH = 120
+#							}
 #						}
 
 #						20 = TEXT
+#						20.wrap = ,|
 #						20.value = fileadmin/image.jpg
 #					}
 				}
@@ -1320,17 +1429,27 @@ parameter =               1
 					# Add Embed Images (separate each with comma) - can be used in mail with <img src="{embedImages.0}" /> and so on...
 #					embedImage = COA
 #					embedImage {
-#						10 = IMG_RESOURCE
+#						10 = FILES
 #						10 {
-#							wrap = |,
-#							file.import = uploads/pics/
-#							file.import.field = image
-#							file.import.listNum = 0
-#							file.maxW = 120
-#							file.maxH = 120
+#							references {
+#								table = fe_users
+#								fieldName = image
+#								uid.field = uid
+#							}
+
+#							begin = 0
+#							maxItems = 1
+
+#							renderObj = IMG_RESOURCE
+#							renderObj {
+#								file.import.dataWrap = {file:current:storage}:{file:current:identifier}
+#								file.maxW = 120
+#								file.maxH = 120
+#							}
 #						}
 
 #						20 = TEXT
+#						20.wrap = ,|
 #						20.value = fileadmin/image.jpg
 #					}
 				}
@@ -1404,6 +1523,9 @@ parameter =               1
 		}
 
 		misc {
+			# Where to save new image files
+			uploadFolder = {$plugin.tx_femanager.settings.uploadFolder}
+
 			# Number of allowed images to upload
 			uploadAmount = 3
 
@@ -1411,7 +1533,7 @@ parameter =               1
 			uploadSize = 25000000
 
 			# Number of allowed images to upload
-			uploadFileExtension = jpeg, jpg, gif, png, bmp
+			uploadFileExtension = jpeg, jpg, gif, png, bmp, svg, tif, tiff
 
 			# Width of the rendered image in FE
 			renderImageWidth = 250
@@ -1440,6 +1562,71 @@ parameter =               1
 #			}
 		}
 
+		# Add any dataProcessor classes that will be called just before the action will be rendered
+		dataProcessors {
+
+			# Remove empty usergroup variables
+			10 {
+				class = In2code\Femanager\DataProcessor\CleanUserGroup
+
+				events {
+					New = create
+					Edit = update
+				}
+			}
+
+			# Enable image upload
+			20 {
+				class = In2code\Femanager\DataProcessor\ImageManipulation
+
+				config {
+					propertyNamesForUpload = image
+					sysFileRelation {
+						tablenames = fe_users
+						fieldname = image
+						table_local = sys_file
+					}
+				}
+
+				events {
+					New = create
+					Edit = update
+				}
+			}
+
+			# Birthdate converter
+			30 {
+				class = In2code\Femanager\DataProcessor\DateConverter
+
+				config {
+					fieldNames = dateOfBirth
+				}
+
+				events {
+					New = create
+					Edit = update
+				}
+			}
+
+#			100 {
+ 				# Classname that should be called with an existing method process()
+#				class = Vendor\Ext\DataProcessor\DoSomethingDataProcessor
+
+				# optional: Add configuration for your PHP
+#				config {
+#					foo = bar
+
+#					fooCObject = TEXT
+#					fooCObject.value = do something with this text
+#				}
+
+				# call this class just before this actions will be opened
+#				events {
+#					New = create,createStatus
+#				}
+#			}
+		}
+
 		# Don't touch this - this is needed to let the plugin know if the main typoscript is included - otherwise an errormessage will be shown in the frontend
 		_TypoScriptIncluded = 1
 	}
@@ -1453,19 +1640,14 @@ parameter =               1
 #########################
 # add jQuery if it was turned on in the constants
 [globalVar = LIT:0 < {$plugin.tx_femanager.settings.jQuery}]
-page.includeJSFooterlibs.femanagerJQuery = //ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
+page.includeJSFooterlibs.femanagerJQuery = //ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
 page.includeJSFooterlibs.femanagerJQuery.external = 1
 [end]
 
 # add twitter bootstrap JS if it was turned on in the constants
 [globalVar = LIT:0 < {$plugin.tx_femanager.settings.bootstrap}]
-page.includeJSFooterlibs.femanangerBootstrap = //netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js
+page.includeJSFooterlibs.femanangerBootstrap = //maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js
 page.includeJSFooterlibs.femanangerBootstrap.external = 1
-[end]
-
-# add fineuploader JS if it was turned on in the constants
-[globalVar = LIT:0 < {$plugin.tx_femanager.settings.fineuploader}]
-page.includeJSFooterlibs.femanangerFineuploader = EXT:femanager/Resources/Public/JavaScripts/jquery.fineuploader-3.5.0.min.js
 [end]
 
 #########################
@@ -1473,16 +1655,16 @@ page.includeJSFooterlibs.femanangerFineuploader = EXT:femanager/Resources/Public
 #########################
 # add twitter bootstrap CSS if it was turned on in the constants
 [globalVar = LIT:0 < {$plugin.tx_femanager.settings.bootstrapCSS}]
-page.includeCSS.femanangerBootstrap = //netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css
+page.includeCSS.femanangerBootstrap = //maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css
 page.includeCSS.femanangerBootstrap.external = 1
 [end]
 
 page {
 	includeCSS {
-		femanagerMain = EXT:femanager/Resources/Public/Css/Main.css
+		femanagerMain = EXT:femanager/Resources/Public/Css/Main.min.css
 	}
 	includeJSFooter {
-		femanagerValidation = EXT:femanager/Resources/Public/JavaScripts/Validation.js
-		femanager = EXT:femanager/Resources/Public/JavaScripts/Femanager.js
+		femanagerValidation = EXT:femanager/Resources/Public/JavaScript/Validation.min.js
+		femanager = EXT:femanager/Resources/Public/JavaScript/Femanager.min.js
 	}
 }

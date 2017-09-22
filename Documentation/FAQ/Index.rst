@@ -24,6 +24,25 @@ Q: How to add my own field validation?
 A: See code in best practice section
 
 
+Q: Class 'In2code\Femanager\Domain\Model\Log' not found - what can I do?
+------------------------------------------------------------------------
+
+A: This problem normally occurs only if you have installed femanager without composer (btw: it's time for composer :),
+so your instance is running in *classic mode*.
+It's possible that you have added femanager via Extension Manager. Please go into the install tool by opening the URL
+www.yourdomain.org/typo3/install (of course you have to add a file named *ENABLE_INSTALL_TOOL* to typo3conf/ folder
+first) and click on *Create autoload information for extensions* in section *Dump Autoload Information*.
+That will create a new autoload file.
+
+
+Q: An exception occurred while executing 'SELECT `uid` FROM `tx_femanager_domain_model_log` WHERE ... doesn't exist
+-------------------------------------------------------------------------------------------------------------------
+
+A: There are some tables missing in your database. Please open the install tool under
+www.yourdomain.org/typo3/install (of course you have to add a file named *ENABLE_INSTALL_TOOL* to typo3conf/ folder
+first) and click on Compare current database with specification.
+
+
 Q: How can I disable the clientside/serverside validation?
 ----------------------------------------------------------
 
@@ -137,19 +156,18 @@ A: Check if all needed JavaScript files are loaded (see frontend html- source). 
 
 .. code-block:: text
 
-	plugin.tx_femanager.settings.jQuery = 1
-	plugin.tx_femanager.settings.bootstrap = 1
-	plugin.tx_femanager.settings.bootstrapCSS = 1
+    plugin.tx_femanager.settings.jQuery = 1
+    plugin.tx_femanager.settings.bootstrap = 1
+    plugin.tx_femanager.settings.bootstrapCSS = 1
 
 Example ordering and needed JavaScripts:
 
 .. code-block:: text
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
-	<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js" type="text/javascript"></script>
-	<script src="typo3conf/ext/femanager/Resources/Public/JavaScripts/jquery.fineuploader-3.5.0.min.js?1372500875" type="text/javascript"></script>
-	<script src="typo3conf/ext/femanager/Resources/Public/JavaScripts/Validation.js?1372620303" type="text/javascript"></script>
-	<script src="typo3conf/ext/femanager/Resources/Public/JavaScripts/Femanager.js?1372513534" type="text/javascript"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/typo3conf/ext/femanager/Resources/Public/JavaScript/Validation.min.js?1502824793" type="text/javascript"></script>
+    <script src="/typo3conf/ext/femanager/Resources/Public/JavaScript/Femanager.min.js?1502824793" type="text/javascript"></script>
 
 
 Q: How can I send user values to a third-party-software like a CRM?

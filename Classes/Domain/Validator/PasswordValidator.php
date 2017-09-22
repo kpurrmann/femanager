@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace In2code\Femanager\Domain\Validator;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -80,9 +81,8 @@ class PasswordValidator extends AbstractValidatorExtbase
      */
     protected function keepPasswordIfEmpty()
     {
-        if (
-            isset($this->configuration['settings']['edit']['misc']['keepPasswordIfEmpty']) &&
-            $this->configuration['settings']['edit']['misc']['keepPasswordIfEmpty'] === '1' &&
+        if (isset($this->configuration['edit']['misc']['keepPasswordIfEmpty']) &&
+            $this->configuration['edit']['misc']['keepPasswordIfEmpty'] === '1' &&
             isset($this->piVars['user']['password']) && $this->piVars['user']['password'] === '' &&
             isset($this->piVars['password_repeat']) && $this->piVars['password_repeat'] === ''
         ) {
@@ -120,7 +120,7 @@ class PasswordValidator extends AbstractValidatorExtbase
     protected function init()
     {
         $this->configuration = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
         );
         $this->cObj = $this->configurationManager->getContentObject();
         $this->piVars = GeneralUtility::_GP('tx_femanager_pi1');
