@@ -191,7 +191,6 @@ class SendMailService
     protected function getMailBody($template, $variables)
     {
         $standAloneView = TemplateUtility::getDefaultStandAloneView();
-        die('hard');
         $standAloneView->setTemplatePathAndFilename($this->getRelativeEmailPathAndFilename($template));
         $standAloneView->assignMultiple($variables);
         return $standAloneView->render();
