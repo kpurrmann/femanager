@@ -169,7 +169,7 @@ class NewController extends AbstractController
             LogUtility::log(Log::STATUS_REGISTRATIONCONFIRMEDUSER, $user);
 
             if ($this->isAdminConfirmationMissing($user)) {
-
+                // @todo add hook for notification "New confirmation awating"
                 $this->sendMailService->send(
                     'createAdminConfirmation',
                     StringUtility::makeEmailArray(
