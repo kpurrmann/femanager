@@ -89,11 +89,6 @@ class SendMailService
         if (!empty($variables['user']) && method_exists($variables['user'], '_getProperties')) {
             $this->cObj->start($variables['user']->_getProperties());
         }
-
-        DebuggerUtility::var_dump($typoScript['_enable']);
-        DebuggerUtility::var_dump($typoScript['_enable.']);
-        DebuggerUtility::var_dump($this->cObj);
-
         if (!$this->cObj->cObjGetSingle($typoScript['_enable'], $typoScript['_enable.']) || count($receiver) === 0) {
             return false;
         }
@@ -196,6 +191,7 @@ class SendMailService
     protected function getMailBody($template, $variables)
     {
         $standAloneView = TemplateUtility::getDefaultStandAloneView();
+        die('hard');
         $standAloneView->setTemplatePathAndFilename($this->getRelativeEmailPathAndFilename($template));
         $standAloneView->assignMultiple($variables);
         return $standAloneView->render();
