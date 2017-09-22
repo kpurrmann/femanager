@@ -169,7 +169,24 @@ class NewController extends AbstractController
             LogUtility::log(Log::STATUS_REGISTRATIONCONFIRMEDUSER, $user);
 
             if ($this->isAdminConfirmationMissing($user)) {
-                // @todo add hook for notification "New confirmation awating"
+
+                // auto approvement
+                if ($this->settings['new']['autoApprovement'] == 1) {
+                    if ($this->approveUserAutomatically($user)) {
+                        $this->signalSlotDispatcher->dispatch(
+                            __CLASS__,
+                            __FUNCTION__ . 'AutoApprovementDone',
+                            [$user, $this]
+                        );
+                    } else {
+                        $this->signalSlotDispatcher->dispatch(
+                            __CLASS__,
+                            __FUNCTION__ . 'AutoApprovementRefused',
+                            [$user, $this]
+                        );
+                    };
+                }
+
                 $this->sendMailService->send(
                     'createAdminConfirmation',
                     StringUtility::makeEmailArray(
