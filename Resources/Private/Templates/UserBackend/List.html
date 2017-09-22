@@ -120,120 +120,120 @@ UserBackend / List
 									<span class="c-table">
 										<f:translate key="tx_femanager_domain_model_user" />
 									</span>
-												(<f:count subject="{users}" />)
-											</td>
-											<td nowrap="nowrap" class="col-icon">&nbsp;</td>
-										</tr>
-										<tr class="c-headLine">
-											<td nowrap="nowrap" class="col-icon">
-												<a title="Create New User" onclick="window.location.href='alt_doc.php?returnUrl=' + T3_THIS_LOCATION + '&amp;edit[fe_users][{femanager:Misc.Request(parameter:'id')}]=new'; return false;" href="#">
-													<core:icon identifier="actions-add" />
-												</a>
-											</td>
-											<td nowrap="nowrap" class="col-icon">
+									(<f:count subject="{users}" />)
+								</td>
+								<td nowrap="nowrap" class="col-icon">&nbsp;</td>
+							</tr>
+							<tr class="c-headLine">
+								<td nowrap="nowrap" class="col-icon">
+									<a title="Create New User" onclick="window.location.href='alt_doc.php?returnUrl=' + T3_THIS_LOCATION + '&amp;edit[fe_users][{femanager:Misc.Request(parameter:'id')}]=new'; return false;" href="#">
+										<core:icon identifier="actions -add" />
+									</a>
+								</td>
+								<td nowrap="nowrap" class="col-icon">
 
-											</td>
-											<td nowrap="nowrap" class="col-title">
-												<f:translate key="tx_femanager_domain_model_user.username" />
-											</td>
-											<td nowrap="nowrap">
-												<f:translate key="tx_femanager_domain_model_user.email" />
-											</td>
-											<td nowrap="nowrap">
-												<f:translate key="tx_femanager_domain_model_user.name" />
-											</td>
-											<td nowrap="nowrap">
-												<f:translate key="tx_femanager_domain_model_user.usergroup" />
-											</td>
-											<td nowrap="nowrap" class="col-icon">Actions</td>
-											<td nowrap="nowrap">
-												<f:translate key="tx_femanager_domain_model_user.lastlogin" />
-											</td>
-											<td nowrap="nowrap">
-												UID
-											</td>
-											<td nowrap="nowrap">
-												PID
-											</td>
+								</td>
+								<td nowrap="nowrap" class="col-title">
+									<f:translate key="tx_femanager_domain_model_user.username" />
+								</td>
+								<td nowrap="nowrap">
+									<f:translate key="tx_femanager_domain_model_user.email" />
+								</td>
+								<td nowrap="nowrap">
+									<f:translate key="tx_femanager_domain_model_user.name" />
+								</td>
+								<td nowrap="nowrap">
+									<f:translate key="tx_femanager_domain_model_user.usergroup" />
+								</td>
+								<td nowrap="nowrap"class="col-icon">Actions
+								</td>
+								<td nowrap="nowrap">
+									<f:translate key="tx_femanager_domain_model_user.lastlogin" />
+								</td>
+								<td nowrap="nowrap">
+									UID
+								</td>
+								<td nowrap="nowrap">
+									PID
+								</td>
 
-										</tr>
+							</tr>
 
-										<f:for each="{usersPage}" as="user">
-											<tr class="db_list_normal firstcol femanager_list_line">
-												<td nowrap="nowrap" class="col-icon">
-													<f:if condition="{user.disable}">
-														<f:then>
-															<span title="id={user.uid}">
-																<core:icon identifier="status-user-frontend" size="small" overlay="overlay-hidden" state="disabled"/>
-															</span>
-														</f:then>
-														<f:else>
-															<span  title="id={user.uid} - Hidden">
-																<core:icon identifier="status-user-frontend"/>
-															</span>
-														</f:else>
-													</f:if>
-												</td>
-												<td nowrap="nowrap" class="col-icon">
-													<f:if condition="{user.online}">
-														<f:then>
-															<span class="label label-success">online</span>
-															<f:link.action action="userLogout" arguments="{user:user}" class="logoutUser" title="Logout">
+							<f:for each="{usersPage}" as="user">
+								<tr class="db_list_normal firstcol femanager_list_line">
+									<td nowrap="nowrap" class="col-icon">
+										<f:if condition="{user.disable}">
+											<f:then>
+												<span  title="id={user.uid} ">
+													<core:icon identifier="status -user-frontend" size="small"overlay ="overlay-hidden " state="disabled"/>
+												</span>
+											</f:then>
+											<f:else>
+												<span  title="id={user.uid}- Hidden">
+																<core:icon identifier="status-user-frontend"/></span>
+											</f:else>
+										</f:if>
+									</td>
+									<td nowrap="nowrap" class="col-icon">
+										<f:if condition="{user.online}">
+											<f:then>
+												<span class="label label-success">online</span>
+															<f:link.action action="userLogout" arguments="{user :user}" class="logoutUser" title="Logout">
 																<core:icon identifier="actions-logout" />
 															</f:link.action>
+											</f:then>
+											<f:else>
 
-														</f:then>
-														<f:else>
+											</f:else>
+										</f:if>
+									</td>
+									<td nowrap="nowrap" class="col-title">
+										{user.username}
+									</td>
+									<td nowrap="nowrap">
+										{user.email}
+									</td>
+									<td nowrap="nowrap">
+										{user.lastName}<f:if condition="{user.lastName}">,</f:if> {user.firstName}
+									</td>
+									<td nowrap="nowrap">
+										<f:for each="{user.usergroup}" as="usergroup" iteration="i">
+											<f:if condition="{i.isFirst}">
+												<f:else>
+													<br />
+												</f:else>
+											</f:if>
+											{usergroup.title}
+										</f:for>
+									</td>
+									<td nowrap="nowrap">
+										<f:comment>
+											Edit Icon
+										</f:comment>
+										<a title="Edit" href="{femanager:Misc.BackendEditLink(tableName:'fe_users',identifier:user.uid)}">
+											<core:icon identifier="actions -open"/>
+										</a>
 
-														</f:else>
-													</f:if>
-												</td>
-												<td nowrap="nowrap" class="col-title">
-													{user.username}
-												</td>
-												<td nowrap="nowrap">
-													{user.email}
-												</td>
-												<td nowrap="nowrap">
-													{user.lastName}<f:if condition="{user.lastName}">,</f:if> {user.firstName}
-												</td>
-												<td nowrap="nowrap">
-													<f:for each="{user.usergroup}" as="usergroup" iteration="i">
-														<f:if condition="{i.isFirst}">
-															<f:else>
-																<br />
-															</f:else>
-														</f:if>
-														{usergroup.title}
-													</f:for>
-												</td>
-												<td nowrap="nowrap">
-													<f:comment>
-														Edit Icon
-													</f:comment>
-													<a title="Edit" href="{femanager:Misc.BackendEditLink(tableName:'fe_users',identifier:user.uid)}">
-														<core:icon identifier="actions-open"/>
-													</a>
+										<f:comment>
+											Login as Icon
+										</f:comment>
+										<f:if condition="{femanager:Condition.IsBackendAdministratorAuthentication()}">
+											<a href="/?eID=femanagerLoginAs&user={user.uid}" title="{f:translate(key: 'BackendListLoginAs')}" target="_blank">
+												<core:icon identifier="actions-system-backend-user-switch" />
+											</a>
+										</f:if>
 
-													<f:comment>
-														Login as Icon
-													</f:comment>
-													<f:if condition="{femanager:Condition.IsBackendAdministratorAuthentication()}">
-														<a href="/?eID=femanagerLoginAs&user={user.uid}" title="{f:translate(key: 'BackendListLoginAs')}" target="_blank">
-															<core:icon identifier="actions-system-backend-user-switch" />
-														</a>
-													</f:if>
+										<f:comment>
+											Logout Icon
+										</f:comment>
 
-													<f:comment>
-														Logout Icon
-													</f:comment>
 
-													<input type="hidden" class="container_uid" name="container_uid" value="{user.uid}" />
-													<input type="hidden" class="container_module_uri" name="container_module_uri" value="{moduleUri}" />
-													<input type="hidden" class="container_table" name="container_table" value="fe_users" />
-													<input type="hidden" class="container_label_delete_confirmation" name="container_label_delete_confirmation" value="{f:translate(key:'BackendListUserDeleteConfirmation')}" />
-												</td>
-												<td nowrap="nowrap">
+										<input type="hidden" class="container_uid" name="container_uid" value="{user.uid}" />
+										<input type="hidden" class="container_module_uri" name="container_module_uri" value="{moduleUri}" />
+										<input type="hidden" class="container_table" name="container_table" value="fe_users" />
+										<input type="hidden" class="container_label_delete_confirmation" name="container_label_delete_confirmation" value="{f:translate(key:'BackendListUserDeleteConfirmation')}" />
+									</td>
+								<td nowrap="nowrap">
 													<f:format.date format="d.m.Y H:i">{user.lastlogin}</f:format.date>
 												</td>
 												<td nowrap="nowrap">
@@ -244,11 +244,11 @@ UserBackend / List
 												</td>
 
 											</tr>
-										</f:for>
+							</f:for>
 
-										</tbody>
-									</table>
-									</div>
+						</tbody>
+					</table>
+				</div>
 								</f:be.widget.paginate>
 
 							</f:then>
