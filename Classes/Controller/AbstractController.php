@@ -274,9 +274,6 @@ abstract class AbstractController extends ActionController
     public function finalCreate($user, $action, $redirectByActionName, $login = true, $status = '', $allowRedirect=true)
     {
         $this->loginPreflight($user, $login);
-        if ($config) {
-            $this->settings = $config;
-        }
         $variables = ['user' => $user, 'settings' => $this->settings];
         $this->sendMailService->send(
             'createUserNotify',
@@ -309,7 +306,7 @@ abstract class AbstractController extends ActionController
         if ($allowRedirect===true) {
             $this->redirectByAction($action, ($status ? $status . 'Redirect' : 'redirect'));
             $this->addFlashMessage(LocalizationUtility::translate('create'));
-        $this->redirect($redirectByActionName);
+            $this->redirect($redirectByActionName);
         }
     }
 
