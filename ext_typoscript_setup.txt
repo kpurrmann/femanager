@@ -1,3 +1,5 @@
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:femanager/Configuration/TypoScript/Main/setup.txt ">
+
 # Mapping
 config.tx_extbase {
 	persistence {
@@ -25,14 +27,5 @@ config.tx_extbase {
 }
 
 # Backend Module
-module.tx_femanager {
-	view {
-		templateRootPath = EXT:femanager/Resources/Private/Templates/
-		partialRootPath = EXT:femanager/Resources/Private/Partials/
-		layoutRootPath = EXT:femanager/Resources/Private/Layouts/
-	}
-
-	settings {
-
-	}
-}
+module.tx_femanager < plugin.tx_femanager
+module.tx_femanager.settings.dataProcessors >
