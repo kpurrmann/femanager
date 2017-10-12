@@ -40,7 +40,7 @@ plugin.tx_femanager {
 
 
 				#				email =
-				TEXT
+#				TEXT
 #				email.value = test@in2code.de
 			}
 
@@ -58,13 +58,13 @@ plugin.tx_femanager {
 #			}
 
 			# redirect user after profile creation request (only if user confirmation is activated) (could be a PID, URL or fileadmin-
-			Link)
+#			Link)
          #			requestRedirect
-			=         TEXT
+#			=         TEXT
 #
 #			requestRedirect            {
 #
-			typolink {
+#			typolink {
 #			parameter = 1
 	#		returnLast = url               #					            linkAccessRestrictedPages = 1         #				}
 #			}
@@ -82,7 +82,7 @@ plugin.tx_femanager {
 			# redirect user after user clicks refuse link in confirmation email (only if user confirmation is activated) (could be a PID, URL or fileadmin-Link
 
 #			userConfirmationRefusedRedirect =
-			TEXT
+#			TEXT
 #			userConfirmationRefusedRedirect {
 #				typolink {
 #					parameter = 1
@@ -92,13 +92,13 @@ plugin.tx_femanager {
 #			}
 
 			# redirect admin after admin clicks confirmation link in email (only if admin confirmation is activated) (could be a PID, URL or fileadmin-
-			Link)
+#			Link)
          #			adminConfirmationRedirect
-			=         TEXT
+#			=         TEXT
 #
-			adminConfirmationRedirect            {
+#			adminConfirmationRedirect            {
 #
-			typolink {
+#			typolink {
 	#		parameter = 1
 #			returnLast = url               #					#            linkAccessRestrictedPages = 1         #				}
 #			}
@@ -108,12 +108,12 @@ plugin.tx_femanager {
 #			adminConfirmationRefusedRedirect         = TEXT
 #            adminConfirmationRefusedRedirect {
 #
-			typolink               {
+#			typolink               {
 #
 
-parameter =               1
+#parameter =               1
 #
-			returnLast =               url
+#			returnLast =               url
 
 			#					#linkAccessRestrictedPages = 1
 #				}
