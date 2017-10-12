@@ -26,7 +26,14 @@ class SendMailService
      */
     public function __construct()
     {
-        $this->contentObject = ObjectUtility::getContentObject();
+        if (TYPO3_MODE === 'BE') {
+            $this->initTSFE();
+            $this->contentObject = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
+        } else {
+            $this->contentObject = ObjectUtility::getContentObject();
+        }
+
+
     }
 
     /**
@@ -60,6 +67,7 @@ class SendMailService
         array $typoScript = []
     ): bool {
         if ($this->isMailEnabled($typoScript, $receiver)) {
+
             $this->contentObjectStart($variables);
             $email = ObjectUtility::getObjectManager()->get(MailMessage::class);
             $variables = $this->embedImages($variables, $typoScript, $email);
@@ -273,6 +281,5 @@ class SendMailService
         $GLOBALS['TSFE']->determineId();
         $GLOBALS['TSFE']->initTemplate();
         $GLOBALS['TSFE']->getConfigArray();
-
     }
 }
