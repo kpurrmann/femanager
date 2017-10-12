@@ -166,7 +166,6 @@ class NewController extends AbstractController
 
         } else {
             $this->addFlashMessage(LocalizationUtility::translate('createFailedProfile'), '', FlashMessage::ERROR);
-
             return false;
         }
 
@@ -285,7 +284,6 @@ class NewController extends AbstractController
      */
     protected function isAdminConfirmationMissing(User $user)
     {
-
         $needsAdminConfirmation = !empty($this->settings['new']['confirmByAdmin']) && !$user->getTxFemanagerConfirmedbyadmin();
 
         // auto approvement
@@ -306,7 +304,6 @@ class NewController extends AbstractController
                 );
             };
         }
-
         return $needsAdminConfirmation;
     }
 
@@ -348,7 +345,6 @@ class NewController extends AbstractController
                 return true;
             }
         }
-
         return false;
     }
 
@@ -365,7 +361,7 @@ class NewController extends AbstractController
         $this->userRepository->update($user);
         $this->addFlashMessage(LocalizationUtility::translate('create'));
         LogUtility::log(Log::STATUS_REGISTRATIONCONFIRMEDADMIN, $user);
-        $this->finalCreate($user, 'new', 'createStatus', false, $status = '', false);
+        $this->finalCreate($user, 'new', 'createStatus', false, $status = '', true);
 
         return true;
     }
