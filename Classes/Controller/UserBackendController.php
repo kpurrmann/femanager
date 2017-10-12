@@ -8,7 +8,6 @@ use In2code\Femanager\Utility\FrontendUtility;
 use In2code\Femanager\Utility\LogUtility;
 use In2code\Femanager\Utility\UserUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Class UserBackendController
@@ -79,7 +78,7 @@ class UserBackendController extends AbstractController
 
         $this->userRepository->remove($user);
 
-        $this->addFlashMessage($user->getName() . '  was declined');
+        $this->addFlashMessage($user->getName() . ' was declined');
         $this->redirect('list');
     }
     
