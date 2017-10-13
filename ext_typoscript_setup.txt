@@ -1,4 +1,3 @@
-<INCLUDE_TYPOSCRIPT: source="FILE:EXT:femanager/Configuration/TypoScript/Main/setup.txt ">
 
 # Mapping
 config.tx_extbase {
