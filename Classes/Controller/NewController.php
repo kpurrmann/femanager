@@ -288,14 +288,7 @@ class NewController extends AbstractController
 
         // auto approvement
         if ($this->settings['new']['autoApprovement']['enable'] == 1) {
-            if ($this->approveUserAutomatically($user)) {
-                $needsAdminConfirmation = false;
-                $this->signalSlotDispatcher->dispatch(
-                    __CLASS__,
-                    __FUNCTION__ . 'AutoApprovementDone',
-                    [$user, $this]
-                );
-            } else {
+            if (!$this->approveUserAutomatically($user)) {
                 $needsAdminConfirmation = true;
                 $this->signalSlotDispatcher->dispatch(
                     __CLASS__,
@@ -341,7 +334,7 @@ class NewController extends AbstractController
             if (in_array($user->getEmailDomain(), $whitelistDomainsExceptions)) {
                 return false;
             }
-            if ($this->doApprovement($user)) {
+            if ($this->doApprovement($user, 'autoApproved')) {
                 return true;
             }
         }
@@ -355,6 +348,13 @@ class NewController extends AbstractController
      */
     protected function doApprovement($user, $status = '')
     {
+        if ($status === 'autoApproved') {
+            $this->signalSlotDispatcher->dispatch(
+                __CLASS__,
+                __FUNCTION__ . 'AutoApprovementDone',
+                [$user, $this]
+            );
+        }
         $user = FrontendUtility::forceValues($user, $this->config['new.']['forceValues.']['onAdminConfirmation.']);
         $user->setTxFemanagerConfirmedbyadmin(true);
         $user->setDisable(false);
