@@ -1,3 +1,15 @@
+config.tx_extbase.persistence.classes {
+	\In2code\Femanager\Domain\Model\User {
+		mapping {
+			columns {
+				tx_femanager_terms.mapOnProperty = terms
+				tx_femanager_terms_version.mapOnProperty = termsVersion
+				tx_femanager_terms_date_of_acceptance.mapOnProperty = termsDateOfAcceptance
+			}
+		}
+	}
+}
+
 plugin.tx_femanager {
 	view {
 		templateRootPaths {

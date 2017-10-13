@@ -70,6 +70,20 @@ class User extends FrontendUser
     protected $terms;
 
     /**
+     * version of terms and conditions
+     *
+     * @var string
+     */
+    protected $termsVersion = '';
+
+    /**
+     * the datetime the user accepted the terms
+     *
+     * @var \DateTime
+     */
+    protected $termsDateOfAcceptance;
+
+    /**
      * @var string
      */
     protected $txExtbaseType;
@@ -285,6 +299,39 @@ class User extends FrontendUser
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getTermsVersion()
+    {
+        return $this->termsVersion;
+    }
+
+    /**
+     * @param string $termsVersion
+     * @return void
+     */
+    public function setTermsVersion(string $termsVersion)
+    {
+        $this->termsVersion = (string)$termsVersion;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getTermsDateOfAcceptance()
+    {
+        return $this->termsDateOfAcceptance;
+    }
+
+    /**
+     * @param \DateTime $termsDateOfAcceptance
+     * @return void
+     */
+    public function setTermsDateOfAcceptance(\DateTime $termsDateOfAcceptance)
+    {
+        $this->termsDateOfAcceptance = $termsDateOfAcceptance;
+    }
 
     /**
      * @return bool

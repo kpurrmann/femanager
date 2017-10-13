@@ -88,8 +88,27 @@ $feUsersColumns = [
             'default' => 0,
         ]
     ],
+    'tx_femanager_terms_version' => [
+        'label' => 'LLL:EXT:femanager/Resources/Private/Language/locallang_db.xlf:' .
+            'fe_users.terms_version',
+        'exclude' => true,
+        'config' => [
+            'type' => 'input',
+            'size' => 32,
+        ]
+    ],
+    'tx_femanager_terms_date_of_acceptance' => [
+        'label' => 'LLL:EXT:femanager/Resources/Private/Language/locallang_db.xlf:' .
+            'fe_users.terms_date_of_acceptance',
+        'exclude' => true,
+        'config' => [
+            'type' => 'input',
+            'size' => '8',
+            'eval' => 'datetime'
+        ]
+    ]
 ];
-$fields = 'crdate, tstamp, tx_femanager_confirmedbyuser, tx_femanager_confirmedbyadmin, tx_femanager_terms';
+$fields = 'crdate, tstamp, tx_femanager_confirmedbyuser, tx_femanager_confirmedbyadmin, tx_femanager_terms, tx_femanager_terms_version, tx_femanager_terms_date_of_acceptance';
 
 if (!\In2code\Femanager\Utility\ConfigurationUtility::isDisableLogActive()) {
     $feUsersColumns['tx_femanager_log'] = [
